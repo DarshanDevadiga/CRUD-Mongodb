@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD</title>
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/5/litera/bootstrap.min.css"
+    />
+    <style>
+        .middle{
+            display: grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-gap: 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-5 mx-auto py-4">
+          <h2 class="text-center">Enter the Task</h2>
+          <form method="POST" action="/create">
+            <div class="form-group">
+              <label>Enter Task Description</label>
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                type="text"
+                name="description"
+                id="description"
+                placeholder="Task Description"
+              />
+            </div>
+            <div class="form-group">
+              <label>Completed</label>
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                type="text"
+                name="completed"
+                id="completed"
+                placeholder="true or false"
+              />
+            </div>
+            <div class="form-group">
+                <br>
+              <input
+                class="btn btn-lg btn-success"
+                type="submit"
+                value="Create"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="middle">
+        <div class="mid">
+          <!-- read -->
+      <h4>Read the Uncompleted Task</h4>
+      <% for(var tasks of data) {%>
+      <form action="" class="form-inline mx-3">
+          <p><% if(tasks.completed) { %>
+            <% } else { %>
+                <%= tasks.description %>
+            %>
+                <% } %></p>
+      <% } %>
+        </div>
+
+        <div class="mid">
+      <!-- update -->
+      <h4>Update the Task</h4>
+      <% for(var tasks of data) {%>
+      <form action="/update" method="POST" class="form-inline mx-3">
+    <p> <% if(tasks.completed) { %>
+            
+            <% } else { %>
+                <%= tasks.description %>&nbsp;&nbsp; Completed : <%= tasks.completed
+            %>
+            <input type="hidden" name="id" value="<%= tasks._id %>">
+                <button class="btn btn-primary mx-3">Mark True</button>
+                <% } %></p>
+       
+      <% } %>
+        </div>
+
+        <div class="mid">
+               <!-- delete -->
+               <h4>Delete the Task</h4>
+               <% for(var tasks of data) {%>
+               <form action="/delete" method="POST" class="form-inline mx-3">
+                <p><%= tasks.description %><input type="hidden" name="id" value="<%= tasks._id %>">
+                 <button type="submit" class="btn btn-danger mx-3">Delete</button>
+                </p>
+               </form>
+               <% } %>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
